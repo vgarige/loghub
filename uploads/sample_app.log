@@ -1,0 +1,8 @@
+
+2025-07-08 12:45:32,125 INFO  [main] com.example.App - Application started
+2025-07-08 12:45:33,567 WARN  [main] com.example.ConfigLoader - Configuration file not found, using defaults
+2025-07-08 12:45:35,678 ERROR [worker-1] com.example.DataProcessor - Failed to process record: ID=89372, reason=NullPointerException
+2025-07-08 12:45:36,789 DEBUG [worker-2] com.example.DataProcessor - Processing record: ID=89373
+2025-07-08 12:45:37,001 INFO  [worker-2] com.example.DataProcessor - Record processed successfully: ID=89373
+2025-07-08 12:46:00,215 INFO  [scheduler] com.example.Scheduler - Scheduled task executed
+2025-07-08 12:47:12,889 ERROR [worker-3] com.example.NetworkClient - Connection timeout to http://api.example.com/data

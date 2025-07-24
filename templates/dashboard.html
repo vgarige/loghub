@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LogHub Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filters input, .filters select {
+            padding: 5px;
+        }
+
+        .chart-container {
+            width: 40%;
+            margin: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .logout {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>LogHub Dashboard</h1>
+    <a href="/logout" class="logout">Logout</a>
+
+    <!-- Filters -->
+    <form method="GET" action="{{ url_for('dashboard') }}" class="filters">
+        <input type="text" name="keyword" placeholder="Search keyword" value="{{ request.args.get('keyword', '') }}">
+        
+        <select name="level">
+            <option value="">All Levels</option>
+            <option value="INFO" {% if request.args.get('level') == 'INFO' %}selected{% endif %}>INFO</option>
+            <option value="WARNING" {% if request.args.get('level') == 'WARNING' %}selected{% endif %}>WARNING</option>
+            <option value="ERROR" {% if request.args.get('level') == 'ERROR' %}selected{% endif %}>ERROR</option>
+        </select>
+
+        <input type="date" name="start_date" value="{{ request.args.get('start_date', '') }}">
+        <input type="date" name="end_date" value="{{ request.args.get('end_date', '') }}">
+
+        <button type="submit">Apply Filters</button>
+    </form>
+
+    <!-- Chart -->
+    <div class="chart-container">
+        <canvas id="logChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('logChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['INFO', 'WARNING', 'ERROR'],
+                datasets: [{
+                    label: 'Log Levels',
+                    data: [{{ level_counts.INFO }}, {{ level_counts.WARNING }}, {{ level_counts.ERROR }}],
+                    backgroundColor: ['#36a2eb', '#ffcc00', '#ff6384']
+                }]
+            }
+        });
+    </script>
+
+    <!-- Log Table -->
+    <h2>Log Entries</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Level</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+                <tr>
+                    <td>{{ log.timestamp }}</td>
+                    <td>{{ log.level }}</td>
+                    <td>{{ log.message }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

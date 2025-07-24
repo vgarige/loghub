@@ -1,0 +1,27 @@
+<!-- templates/upload.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Logs - LogHub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dark">
+<div class="form-container">
+    <div class="topbar">
+        <h2>Upload Log File</h2>
+        <a href="/logout" class="btn danger">Logout</a>
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="logfile" required>
+        <button type="submit">Upload</button>
+    </form>
+    <a href="/dashboard" class="btn">View Dashboard</a>
+</div>
+</body>
+</html>

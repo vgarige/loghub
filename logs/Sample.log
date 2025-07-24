@@ -1,0 +1,9 @@
+2025-06-30 10:15:23 INFO System started successfully
+2025-06-30 10:16:10 WARNING CPU temperature high
+2025-06-30 10:17:05 ERROR Failed to connect to database
+2025-06-30 10:18:42 INFO User 'admin' logged in
+2025-06-30 10:19:55 INFO Scheduled backup completed
+2025-06-30 10:20:21 ERROR Disk write failure
+2025-06-30 10:21:12 WARNING Memory usage above threshold
+2025-06-30 10:22:33 INFO User 'john' uploaded file report.pdf
+2025-06-30 10:23:40 INFO System check completed
